@@ -1,0 +1,4 @@
+com\skillsoft\springboot\controller\ProductController.class
+com\skillsoft\springboot\dto\ProductDTO.class
+com\skillsoft\springboot\SpringbootApplication.class
+com\skillsoft\springboot\service\ProductService.class
