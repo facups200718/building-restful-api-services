@@ -28,4 +28,13 @@ public class ProductService {
     public void addProduct(ProductDTO product) {
         products.add(product);
     }
+
+    public void updateProduct(String id, ProductDTO product) {
+        products.stream().filter(p -> p.getId().equals(id))
+                .forEach(p -> products.set(products.indexOf(p), product));
+    }
+
+    public void deleteProduct(String id) {
+        products.removeIf(p -> p.getId().equals(id));
+    }
 }
