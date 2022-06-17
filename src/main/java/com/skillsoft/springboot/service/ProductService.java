@@ -1,40 +1,51 @@
 package com.skillsoft.springboot.service;
 
 import com.skillsoft.springboot.dto.ProductDTO;
+import com.skillsoft.springboot.entity.ProductEntity;
+import com.skillsoft.springboot.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class ProductService {
-    private List<ProductDTO> products = new ArrayList<>(Arrays.asList(
-            new ProductDTO("P101", "Monitor", "Electronics"),
-            new ProductDTO("P102", "Blanket", "Household"),
-            new ProductDTO("P103", "Laptop", "Electronics"),
-            new ProductDTO("P104", "Shirt", "Fashion"),
-            new ProductDTO("P105", "Pens", "School")
-    ));
+    @Autowired
+    private ProductRepository productRepository;
 
     public List<ProductDTO> getProducts() {
-        return products;
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        List<ProductEntity> productEntities = new ArrayList<>();
+        productRepository.findAll().forEach(productEntities::add);
+        productEntities.stream().forEach(
+                p -> productDTOList.add(new ProductDTO(p.getId(), p.getName(), p.getCategory())));
+        return productDTOList;
     }
 
-    public ProductDTO getProduct(String id) {
-        return products.stream().filter(product -> product.getId().equals(id)).findFirst().get();
+    public ProductDTO getProduct(Long id) {
+        ProductEntity productEntity = productRepository.findById(id).get();
+        return new ProductDTO(productEntity.getId(),
+                productEntity.getName(),
+                productEntity.getCategory());
     }
 
     public void addProduct(ProductDTO product) {
-        products.add(product);
+        productRepository.save(new ProductEntity(
+                product.getName(),
+                product.getCategory()));
     }
 
-    public void updateProduct(String id, ProductDTO product) {
-        products.stream().filter(p -> p.getId().equals(id))
-                .forEach(p -> products.set(products.indexOf(p), product));
+    public void updateProduct(Long id, ProductDTO product) {
+        if (productRepository.findById(id).get() != null) {
+            productRepository.save(new ProductEntity(
+                    product.getName(),
+                    product.getCategory()
+            ));
+        }
     }
 
-    public void deleteProduct(String id) {
-        products.removeIf(p -> p.getId().equals(id));
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 }
