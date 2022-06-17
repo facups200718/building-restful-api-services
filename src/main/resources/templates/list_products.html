@@ -36,10 +36,12 @@
                                 <td th:text="${product.name}"></td>
                                 <td th:text="${product.category}"></td>
                                 <td>
-                                    <a class="btn btn-primary"> Edit </a>
+                                    <a th:href="@{/update_product/{id}(id=${product.id})}"
+                                       class="btn btn-primary"> Edit </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-danger"> Delete </a>
+                                    <a th:href="@{/delete_product/{id}(id=${product.id})}"
+                                       class="btn btn-danger"> Delete </a>
                                 </td>
                             </tr>
                         </tbody>
