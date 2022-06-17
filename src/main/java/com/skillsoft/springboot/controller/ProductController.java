@@ -13,7 +13,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<ProductDTO> getAllProducts() {
-        return productService.getProducts();
+        return productService.getAllProducts();
     }
 
     @GetMapping("/products/{id}")
