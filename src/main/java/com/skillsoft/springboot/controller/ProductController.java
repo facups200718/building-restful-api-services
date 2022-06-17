@@ -26,9 +26,9 @@ public class ProductController {
         productService.addProduct(product);
     }
 
-    @PutMapping("/products/{id}")
-    public void updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO product) {
-        productService.updateProduct(id, product);
+    @PutMapping("/products")
+    public void updateProduct(@RequestBody ProductDTO product) {
+        productService.updateProduct(product);
     }
 
     @DeleteMapping("/products/{id}")

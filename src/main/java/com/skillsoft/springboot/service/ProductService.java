@@ -36,9 +36,10 @@ public class ProductService {
                 product.getCategory()));
     }
 
-    public void updateProduct(Long id, ProductDTO product) {
-        if (productRepository.findById(id).get() != null) {
+    public void updateProduct(ProductDTO product) {
+        if (productRepository.findById(product.getId()).get() != null) {
             productRepository.save(new ProductEntity(
+                    product.getId(),
                     product.getName(),
                     product.getCategory()
             ));

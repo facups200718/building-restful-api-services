@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "products")
 @EnableAutoConfiguration
